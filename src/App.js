@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
 
-// Issue: results only show last orbject in array of objects recieved as response
-// Issue: submit has to be clicked twice to show results, first click is to fetch data
+// funzies!!!: set up pagination
+// Todo: add styling, sticky search at bottom, highlight similar characters
+// add logo to tab
+// add title to page
 
 function App() {
 
   let [query, querySet] = useState('')
-  let [results, resultsSet] = useState([])
   let [response, responseSet] = useState([])
+  let [results, resultsSet] = useState([])
 
 
   const fetchData = (event) => {
@@ -19,18 +21,24 @@ function App() {
       .then(json => {
         responseSet(json)
       });
+  }
+
+  useEffect(() => {
+    results = []
     response.filter((data) => {
       if (query == null) {
-        console.log(query, data)
-        resultsSet(data)
+        results.push(data)
+        resultsSet(results)
       }
-      else if (data.city.toLowerCase().includes(query.toLowerCase())) {
-        console.log(query, data)
-        resultsSet(data)
+      else if (data.city.toLowerCase().includes(query.toLowerCase()) || data.growth_from_2000_to_2013.toLowerCase().includes(query.toLowerCase()) || data.latitude.toString().includes(query) || data.longitude.toString().includes(query.toLowerCase()) || data.population.toLowerCase().includes(query.toLowerCase()) || data.rank.toLowerCase().includes(query.toLowerCase()) || data.state.toLowerCase().includes(query.toLowerCase())) {
+        results.push(data)
+        resultsSet(results)
       }
-
-    })
-  }
+    }
+    )
+  },
+    [response]
+  )
 
   const handleInputChange = (e) => {
     querySet(e.target.value)
@@ -39,7 +47,7 @@ function App() {
   return (
     <div className="App">
 
-      <form onSubmit={fetchData}>
+      <form className="searchBar" onSubmit={fetchData}>
         <label>
           query:
         <input
@@ -54,17 +62,26 @@ function App() {
       <h4>search results for "{query}"</h4>
       <hr />
 
-      search results:
       <br />
 
-      <li> {results.city} </li>
-      <li> {results.growth_from_2000_to_2013}</li>
-      <li> {results.latitude}</li>
-      <li> {results.longitude}</li>
-      <li> {results.population}</li>
-      <li> {results.rank}</li>
-      <li> {results.state}</li>
+      {results.length === 0 ?
+        <p>no results</p>
+        :
+        <ul >
+          {results.map((item, i) => (
+            <div className="card" key={i}>
+              <h3> {item.city}, {item.state}</h3>
+              <li> Growth: {item.growth_from_2000_to_2013}</li>
+              <li> Corrdinates ({item.latitude}, {item.longitude})</li>
+              <li> Population: {item.population}</li>
+              <li> Rank: {item.rank}</li>
+              <br />
+            </div>
+          ))}
 
+        </ul>
+
+      }
     </div>
   );
 }
