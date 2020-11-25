@@ -47,10 +47,11 @@ function App() {
   return (
     <div className="App">
 
+      <h1>City Search</h1>
       <form className="searchBar" onSubmit={fetchData}>
         <label>
-          query:
-        <input
+          <input
+            className="search"
             type="text"
             value={query}
             onChange={handleInputChange}
@@ -59,27 +60,30 @@ function App() {
         <input type="submit" value="Submit" />
       </form>
 
-      <h4>search results for "{query}"</h4>
       <hr />
+
+      <h4>search results for "{query}"</h4>
 
       <br />
 
       {results.length === 0 ?
         <p>no results</p>
         :
-        <ul >
-          {results.map((item, i) => (
-            <div className="card" key={i}>
-              <h3> {item.city}, {item.state}</h3>
-              <li> Growth: {item.growth_from_2000_to_2013}</li>
-              <li> Corrdinates ({item.latitude}, {item.longitude})</li>
-              <li> Population: {item.population}</li>
-              <li> Rank: {item.rank}</li>
-              <br />
-            </div>
-          ))}
+        <div className="cardContainer">
+          <ul >
+            {results.map((item, i) => (
+              <div className="card" key={i}>
+                <h3> {item.city}, {item.state}</h3>
+                <p> <strong>Growth:</strong> {item.growth_from_2000_to_2013}</p>
+                <p> <strong>Coordinates:</strong> ({item.latitude}, {item.longitude})</p>
+                <p> <strong>Population:</strong> {item.population}</p>
+                <p> <strong>Rank:</strong> {item.rank}</p>
+                <br />
+              </div>
+            ))}
 
-        </ul>
+          </ul>
+        </div>
 
       }
     </div>

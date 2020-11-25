@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  align-content: center;
 }
 
 li {
@@ -7,14 +8,47 @@ li {
 }
 
 .searchBar {
-  border: black 5px solid;
-  /* z-index:99;
-  position: relative;
-  min-width: 100%;
-  bottom:100%; */
+  margin-top: 50px;
+  margin-bottom: 50px;
+
 }
 
+
 .card {
-  border: black 10px solid;
-  background-color: blanchedalmond;
+  border: black 1px solid;
+  background-color: cornflowerblue;
+  max-width: 25%;
+  height: auto;
+  margin: 10px auto;
+  color: white
+  
+}
+
+hr {
+  color: black
+}
+
+h1{
+  color: cornflowerblue;
+}
+
+.search {
+  width: 60%;
+  height: 50px;
+  text-align: center;
+  font-size: xx-large;
+  background-color: white;
+  color: black;
+}
+
+input {
+  margin-top: 5px;
+  width: 40%;
+  height: 80%;
+  background-color: rgba(100, 149, 237, .3);
+  color: rgb(36, 32, 32);
+}
+
+h1 {
+  font-size: 5em;
 }
