@@ -69,7 +69,7 @@ function App() {
       {results.length === 0 ?
         <p>no results</p>
         :
-        <div className="cardContainer">
+        <div>
           <ul >
             {results.map((item, i) => (
               <div className="card" key={i}>
